@@ -1,5 +1,4 @@
-const app = require('./app')
+const app = require('./src/app');
+const {SERVER_PORT, onStartLogPort, ROUTES} = require('./src/common/config');
 
-app.listen(3000, () => {
-  console.log("Server running. Use our API on port: 3000")
-})
+app.listen(SERVER_PORT, () => onStartLogPort(ROUTES.contacts));
