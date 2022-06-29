@@ -10,7 +10,7 @@
   "author": "Kostiantyn Ochenash <ochenashk@gmail.com>",
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./server.js",
-    "start:dev": "cross-env NODE_ENV=development nodemon ./server.js",
+    "dev": "cross-env NODE_ENV=development nodemon ./server.js",
     "lint": "eslint --cache **/*.js",
     "lint:fix": "eslint --cache --fix **/*.js"
   },
@@ -19,7 +19,8 @@
     "cross-env": "7.0.3",
     "dotenv": "^16.0.1",
     "express": "4.17.1",
-    "morgan": "1.10.0"
+    "morgan": "1.10.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "^8.18.0",

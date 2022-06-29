@@ -1,21 +1,20 @@
 const express = require('express');
+const {validateAddContact} = require('../../middlewares/contactsMiddleware');
 const {
   listContacts,
   getContactById,
   addContact,
-  deleteContact,
-  changeContactById,
-  patchContactById,
-} = require('../../controllers/contactsController');
+  // updateContact,
+  // removeContact,
+} = require('../../models/contacts');
 
 const router = new express.Router();
 
 router
   .get('/', listContacts)
   .get('/:contactId', getContactById)
-  .post('/', addContact)
-  .put('/:contactId', changeContactById)
-  .patch('/:contactId', patchContactById)
-  .delete('/:contactId', deleteContact);
+  .post('/', validateAddContact, addContact);
+// .put('/:id', updateContact)
+// .delete('/:id', removeContact);
 
 module.exports = router;
