@@ -12,7 +12,7 @@ const router = new express.Router();
 
 router
   .get('/', listContacts)
-  .get('/:contactId', getContactById)
+  .get('/:id', getContactById)
   .post('/', validateAddContact, addContact);
 // .put('/:id', updateContact)
 // .delete('/:id', removeContact);

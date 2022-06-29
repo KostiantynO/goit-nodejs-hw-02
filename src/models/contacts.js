@@ -67,7 +67,9 @@ const listContacts = async (req, res) => {
 };
 
 const getContactById = async (req, res) => {
-  const id = req.params.id?.trim();
+  const id = req.params.id;
+  console.log('getContactById ~ id', id);
+
   if (!id) {
     return res.status(BAD_REQUEST).json({
       status: ERROR,
