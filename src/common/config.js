@@ -16,9 +16,7 @@ const ENDPOINTS = {
 const onStartLogPort = (route) => {
   switch (route) {
     case ROUTES.contacts:
-      console.log(
-        `Server running. Use our API on port: ${SERVER_PORT}. Endpoint: ${ENDPOINTS.contacts}`
-      );
+      console.log(`Server started. Endpoint: ${ENDPOINTS.contacts}`);
       break;
 
     default:

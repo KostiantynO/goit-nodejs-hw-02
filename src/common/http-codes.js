@@ -9,7 +9,7 @@ const NOT_FOUND = 404;
 const CONFLICT = 409;
 const UNPROCESSABLE_ENTITY = 422;
 
-const INTERNAL_SERVER_ERROR = 500;
+const SERVER_ERROR = 500;
 
 const SUCCESS = 'success';
 const ERROR = 'error';
@@ -26,7 +26,7 @@ module.exports = {
   CONFLICT,
   UNPROCESSABLE_ENTITY,
 
-  INTERNAL_SERVER_ERROR,
+  SERVER_ERROR,
 
   SUCCESS,
   ERROR,
