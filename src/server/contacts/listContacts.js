@@ -1,6 +1,6 @@
-const {getContacts} = require('../../models/contacts/writeToFile');
-const {createSuccess, createError} = require('./responseHelpers');
-const {OK, NOT_FOUND} = require('../../common/http-codes');
+const { getContacts } = require('../models/contacts/writeToFile');
+const { createSuccess, createError } = require('./responseHelpers');
+const { OK, NOT_FOUND } = require('../common/http-codes');
 
 const listContacts = async (req, res) => {
   try {
