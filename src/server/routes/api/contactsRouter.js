@@ -7,7 +7,14 @@ const {
 const { ctrlWrapper } = require('../../middlewares');
 
 const {
-  contacts: { getAll, getById, add, updateById, updateFavorite, removeById },
+  contacts: {
+    getAll,
+    getById,
+    add,
+    updateById,
+    updateStatusContact,
+    removeById,
+  },
 } = require('../../controllers');
 
 const validateBody = validation(addContactJoiSchema);
@@ -21,7 +28,12 @@ router
   .post('/', validateBody, ctrlWrapper(add))
   .get('/:id', isId, ctrlWrapper(getById))
   .put('/:id', isId, validateBody, ctrlWrapper(updateById))
-  .patch('/:id/favorite', isId, validateFavorite, ctrlWrapper(updateFavorite))
+  .patch(
+    '/:id/favorite',
+    isId,
+    validateFavorite,
+    ctrlWrapper(updateStatusContact),
+  )
   .delete('/:id', isId, ctrlWrapper(removeById));
 
 module.exports = router;

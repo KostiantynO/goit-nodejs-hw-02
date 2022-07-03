@@ -3,7 +3,7 @@ const { checkResult } = require('../../helpers/sendError');
 const { sendSuccessCodeData } = require('../../helpers/sendSuccess');
 const { OK } = require('../../common/http-codes');
 
-const updateFavorite = async (req, res) => {
+const updateStatusContact = async (req, res) => {
   const { id } = req.params;
   const { favorite } = req.body;
 
@@ -13,9 +13,9 @@ const updateFavorite = async (req, res) => {
     { new: true },
   );
 
-  await checkResult(patchedContact, id, `Contact with _id='${id}' not patched`);
+  await checkResult(patchedContact, id);
 
   return sendSuccessCodeData(res, OK, patchedContact);
 };
 
-module.exports = updateFavorite;
+module.exports = updateStatusContact;

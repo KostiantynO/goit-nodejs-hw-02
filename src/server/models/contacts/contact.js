@@ -16,6 +16,7 @@ const phoneExample = [
 
 const joiMessage = { 'any.required': 'missing required {{#label}} field' };
 const joiNameMessage = { 'any.required': 'Set name for contact' };
+const joiFavoriteMessage = { 'any.required': `Missing field 'favorite'` };
 
 const joiPhoneMessage = {
   ...joiMessage,
@@ -73,7 +74,7 @@ const addContactJoiSchema = Joi.object({
 });
 
 const favoriteJoiSchema = Joi.object({
-  favorite: favorite.required(),
+  favorite: favorite.required().messages(joiFavoriteMessage),
 });
 
 module.exports = {
