@@ -2,31 +2,36 @@
   "name": "template",
   "version": "0.0.0",
   "private": true,
-  "main": "server.js",
+  "main": "index.js",
   "engines": {
     "node": ">=14.0.0"
   },
   "keywords": [],
   "author": "Kostiantyn Ochenash <ochenashk@gmail.com>",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node ./server.js",
-    "dev": "cross-env NODE_ENV=development nodemon ./server.js",
-    "lint": "eslint --cache **/*.js",
-    "lint:fix": "eslint --cache --fix **/*.js"
+    "start": "cross-env NODE_ENV=production node ./index.js",
+    "dev": "cross-env NODE_ENV=development nodemon ./index.js",
+    "prettier": "prettier --check --write --cache src/**/*.js",
+    "lint": "eslint --cache src/**/*.js",
+    "lint:fix": "eslint --cache --fix src/**/*.js",
+    "format": "prettier --check --write --cache src/**/*.js && eslint --fix --cache src/**/*.js"
   },
   "dependencies": {
     "cors": "2.8.5",
     "cross-env": "7.0.3",
     "dotenv": "^16.0.1",
     "express": "4.17.1",
+    "http-errors": "^2.0.0",
     "joi": "^17.6.0",
+    "mongoose": "^6.4.2",
     "morgan": "1.10.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "eslint": "^8.18.0",
-    "eslint-config-google": "^0.14.0",
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "nodemon": "2.0.15",
     "prettier": "^2.7.1"

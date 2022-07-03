@@ -1,6 +1,6 @@
-const {getById} = require('../../models/contacts/writeToFile');
-const {createSuccess, createError} = require('./responseHelpers');
-const {OK, NOT_FOUND, SERVER_ERROR} = require('../../common/http-codes');
+const { getById } = require('../models/contacts/writeToFile');
+const { createSuccess, createError } = require('./responseHelpers');
+const { OK, NOT_FOUND, SERVER_ERROR } = require('../common/http-codes');
 
 const getContactById = async (req, res) => {
   const id = req.params.id?.trim();
@@ -14,10 +14,14 @@ const getContactById = async (req, res) => {
       return createError(res, NOT_FOUND, `Contact not found, id='${id}'`);
     }
 
-    createSuccess(res, OK, contact);
+    return createSuccess(res, OK, contact);
   } catch (error) {
     console.log(error);
-    createError(res, SERVER_ERROR, `Error while finding contact by id='${id}'`);
+    return createError(
+      res,
+      SERVER_ERROR,
+      `Error while finding contact by id='${id}'`,
+    );
   }
 };
 

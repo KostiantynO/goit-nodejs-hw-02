@@ -1,6 +1,6 @@
-const {getById, changeContact} = require('../../models/contacts/writeToFile');
-const {createSuccess, createError} = require('./responseHelpers');
-const {OK, NOT_FOUND, SERVER_ERROR} = require('../../common/http-codes');
+const { getById, changeContact } = require('../models/contacts/writeToFile');
+const { createSuccess, createError } = require('./responseHelpers');
+const { OK, NOT_FOUND, SERVER_ERROR } = require('../common/http-codes');
 
 const updateContact = async (req, res) => {
   const id = req.params.id?.trim();
@@ -14,8 +14,8 @@ const updateContact = async (req, res) => {
       return createError(res, NOT_FOUND, `Contact not found, id='${id}'`);
     }
 
-    const {name, email, phone} = res.locals.contactUpdate;
-    const contactUpdate = {name, email, phone, id};
+    const { name, email, phone } = res.locals.contactUpdate;
+    const contactUpdate = { name, email, phone, id };
     await changeContact(contactUpdate);
     const modifiedContact = await getById(id);
 
@@ -23,9 +23,9 @@ const updateContact = async (req, res) => {
       return createError(res, NOT_FOUND, `No edited contact, id='${id}'`);
     }
 
-    createSuccess(res, OK, modifiedContact);
+    return createSuccess(res, OK, modifiedContact);
   } catch (error) {
-    createError(
+    return createError(
       res,
       SERVER_ERROR,
       `Error when updating contact by id='${id}' ${error}`,

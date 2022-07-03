@@ -2,8 +2,8 @@ const PORTS = {
   BACKEND: 3000,
   FRONTEND: 3001,
 };
-
-const SERVER_PORT = process.env.SERVER_PORT || PORTS.BACKEND;
+const { PORT } = process.env;
+const SERVER_PORT = PORT || PORTS.BACKEND;
 
 const ROUTES = {
   contacts: '/api/v1/contacts',
@@ -13,7 +13,7 @@ const ENDPOINTS = {
   contacts: `http://localhost:${SERVER_PORT}${ROUTES.contacts}`,
 };
 
-const onStartLogPort = (route) => {
+const logPort = (route) => {
   switch (route) {
     case ROUTES.contacts:
       console.log(`Server started. Endpoint: ${ENDPOINTS.contacts}`);
@@ -29,5 +29,5 @@ module.exports = {
   ROUTES,
   ENDPOINTS,
 
-  onStartLogPort,
+  logPort,
 };

@@ -8,13 +8,21 @@
   "extends": [
     "eslint:recommended",
     "plugin:node/recommended",
-    "google",
+    "airbnb-base",
     "prettier"
   ],
   "parserOptions": {
     "ecmaVersion": "latest"
   },
   "rules": {
-    "indent": ["error", 2, {"SwitchCase": 1, "MemberExpression": 1}]
+    "no-console": "off",
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
+        "message": "Unexpected property on console object was called"
+      }
+    ],
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }]
   }
 }

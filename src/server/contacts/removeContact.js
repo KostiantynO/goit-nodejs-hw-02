@@ -1,6 +1,6 @@
-const {getById, removeById} = require('../../models/contacts/writeToFile');
-const {createError, createSuccessMessage} = require('./responseHelpers');
-const {OK, NOT_FOUND, SERVER_ERROR} = require('../../common/http-codes');
+const { getById, removeById } = require('../models/contacts/writeToFile');
+const { createError, createSuccessMessage } = require('./responseHelpers');
+const { OK, NOT_FOUND, SERVER_ERROR } = require('../common/http-codes');
 
 const removeContact = async (req, res) => {
   const id = req.params.id?.trim();
@@ -20,9 +20,13 @@ const removeContact = async (req, res) => {
       return createError(res, SERVER_ERROR, `Contact still exists, id='${id}'`);
     }
 
-    createSuccessMessage(res, OK, 'contact deleted');
+    return createSuccessMessage(res, OK, 'contact deleted');
   } catch (error) {
-    createError(res, SERVER_ERROR, `Error when removing contact by id='${id}'`);
+    return createError(
+      res,
+      SERVER_ERROR,
+      `Error when removing contact by id='${id}'`,
+    );
   }
 };
 
