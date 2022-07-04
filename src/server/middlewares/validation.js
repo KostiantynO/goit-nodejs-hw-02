@@ -1,35 +1,24 @@
-const { BAD_REQUEST, ERROR } = require('../common/http-codes');
+const { BAD_REQUEST } = require('../common/http-codes');
 const { checkId } = require('../helpers/sendError');
 
-const validation = (schema) => async (req, res, next) => {
+const validation = (schema) => async (req, _, next) => {
   try {
     await schema.validateAsync(req.body);
-
     next();
   } catch (error) {
     error.status = BAD_REQUEST;
-    // next(error);
-
-    res.status(BAD_REQUEST).json({
-      status: ERROR,
-      code: BAD_REQUEST,
-      message: error?.message,
-    });
+    next(error);
   }
 };
 
-const validateId = async (req, res, next) => {
+const validateId = async (req, _, next) => {
   const { id } = req.params;
   try {
-    const checkid = await checkId(id);
-    console.log('validateId ~ checkid', checkid);
+    await checkId(id);
     next();
   } catch (error) {
-    res.status(BAD_REQUEST).json({
-      status: ERROR,
-      code: BAD_REQUEST,
-      message: error?.message,
-    });
+    error.status = BAD_REQUEST;
+    next(error);
   }
 };
 

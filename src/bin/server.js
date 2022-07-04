@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 const app = require('../server/app');
 const { SERVER_PORT, logPort, ROUTES } = require('../server/common/config');
 

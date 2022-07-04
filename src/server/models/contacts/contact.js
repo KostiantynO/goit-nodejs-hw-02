@@ -37,12 +37,16 @@ const contactSchema = new Schema(
       type: String,
       match: [
         phoneRegExp,
-        `Got {VALUE}, but 'phone' expected formats: ${phoneExample}`,
+        `Got {VALUE}, but 'phone' expected formats are: ${phoneExample}`,
       ],
       minlength: 6,
       maxlength: 21,
     },
     favorite: { type: Boolean, default: false },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
   },
 
   { versionKey: false, timestamps: true },
@@ -66,11 +70,13 @@ const addContactJoiSchema = Joi.object({
     .trim()
     .min(6)
     .max(21)
-    .regex(phoneRegExp)
+    .pattern(phoneRegExp, 'phone')
     .default('')
     .messages(joiPhoneMessage),
 
   favorite,
+
+  owner: Joi.string().default(''),
 });
 
 const favoriteJoiSchema = Joi.object({
