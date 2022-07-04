@@ -1,6 +1,3 @@
-const { User, addUserJoiSchema } = require('./user');
+const users = require('./user');
 
-module.exports = {
-  User,
-  addUserJoiSchema,
-};
+module.exports = users;

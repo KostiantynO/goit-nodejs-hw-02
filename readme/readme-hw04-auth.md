@@ -115,7 +115,7 @@ npm i bcryptjs
 
 ## `Логін`
 
-- [ ] Створити ендпоінт
+- [x] Створити ендпоінт
       [/users/login](https://github.com/goitacademy/nodejs-homework/blob/master/homework-04/README.ua.md#login-request)
 
   `Login request`
@@ -128,3 +128,52 @@ npm i bcryptjs
   "password": "examplepassword"
   }
   ```
+
+- [x] В моделі `User` знайти користувача за `email`.
+
+- [x] Зробити валідацію всіх обов'язкових полів (email і password). При помилці
+      валідації повернути Помилку валідації.
+
+  `Login validation error`
+
+  ```json
+  Status: 400 Bad Request
+  Content-Type: application/json
+  ResponseBody: <Помилка від Joi або іншої бібліотеки валідації>
+  ```
+
+  - [x] В іншому випадку, порівняти пароль для знайденого користувача, якщо
+        паролі збігаються створити токен, зберегти токен в об'єкт юзера в БД, і
+        повернути
+        [Успішна відповідь](https://github.com/goitacademy/nodejs-homework/blob/master/homework-04/README.ua.md#login-success-response).
+
+  `Login success response`
+
+  ```json
+  Status: 200 OK
+  Content-Type: application/json
+  ResponseBody: {
+    "token": "exampletoken",
+    "user": {
+      "email": "example@example.com",
+      "subscription": "starter"
+    }
+  }
+  ```
+
+- [x] Якщо пароль або імейл невірний, повернути
+      [Помилку Unauthorized](https://github.com/goitacademy/nodejs-homework/blob/master/homework-04/README.ua.md#login-auth-error).
+
+  ```json
+  Login auth error
+  Status: 401 Unauthorized
+  ResponseBody: {
+    "message": "Email or password is wrong"
+  }
+  ```
+
+### `2022-07-05 00:03`:
+
+```bash
+npm i jsonwebtoken
+```

@@ -16,14 +16,14 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       minlength: 5,
-      maxlength: 40,
+      maxlength: 50,
       match: [emailRegExp, emailMsg.pattern],
       required: [true, emailMsg.required],
     },
     password: {
       type: String,
       minlength: 8,
-      maxlength: 40,
+      maxlength: 100,
       required: [true, passMsg],
     },
     subscription: {
@@ -41,11 +41,19 @@ const userSchema = new Schema(
     versionKey: false,
     timestamps: true,
     methods: {
-      async setPassword(newPass) {
-        this.password = await hash(newPass, await genSalt(10));
+      /**
+       * @param {string} newPassword - new password
+       */
+      async setPassword(newPassword) {
+        this.password = await hash(newPassword, await genSalt(10));
       },
-      async checkPassword(hashPass) {
-        return compare(hashPass, this.password);
+
+      /**
+       * @param {string} password
+       * @returns {Promise<boolean>} Promise<boolean>
+       */
+      async checkPassword(password) {
+        return compare(password, this.password);
       },
     },
   },
@@ -60,27 +68,35 @@ const joiMessages = {
   },
 };
 
+const email = Joi.string()
+  .trim()
+  .min(5)
+  .max(50)
+  .pattern(emailRegExp, 'email')
+  .required()
+  .messages(joiMessages.email);
+
+const password = Joi.string()
+  .trim()
+  .min(8)
+  .max(100)
+  .required()
+  .messages(joiMessages.password);
+
 const addUserJoiSchema = Joi.object({
-  email: Joi.string()
-    .trim()
-    .min(5)
-    .max(40)
-    .pattern(emailRegExp, 'email')
-    .required()
-    .messages(joiMessages.email),
-
-  password: Joi.string()
-    .trim()
-    .min(8)
-    .max(40)
-    .required()
-    .messages(joiMessages.password),
-
+  email,
+  password,
   subscription: Joi.valid(...subscriptionTypes).default('starter'),
   token: Joi.string().default(''),
+});
+
+const loginJoiSchema = Joi.object({
+  email,
+  password,
 });
 
 module.exports = {
   User,
   addUserJoiSchema,
+  loginJoiSchema,
 };
