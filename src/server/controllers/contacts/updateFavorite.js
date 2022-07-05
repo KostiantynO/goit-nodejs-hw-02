@@ -3,7 +3,7 @@ const { checkResult } = require('../../helpers/sendError');
 const { OK } = require('../../common/http-codes');
 const { resSuccessCodeData } = require('../../helpers/resSuccess');
 
-const updateStatus = async (req, res) => {
+const updateFavorite = async (req, res) => {
   const { id } = req.params;
   const { favorite } = req.body;
 
@@ -11,11 +11,11 @@ const updateStatus = async (req, res) => {
     id,
     { favorite },
     { new: true },
-  );
+  ).populate('owner', '_id email subscription');
 
   await checkResult(contact, id);
 
   return resSuccessCodeData(res, OK, { contact });
 };
 
-module.exports = updateStatus;
+module.exports = updateFavorite;

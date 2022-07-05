@@ -45,6 +45,7 @@ const contactSchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'user',
+      required: true,
     },
   },
 
@@ -74,8 +75,6 @@ const addContactJoiSchema = Joi.object({
     .messages(joiPhoneMessage),
 
   favorite: favorite.default(false),
-
-  owner: Joi.string().default(''),
 });
 
 const favoriteJoiSchema = Joi.object({

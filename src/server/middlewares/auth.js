@@ -4,9 +4,8 @@ const { User } = require('../models');
 const { UNAUTHORIZED } = require('../common/http-codes');
 const { ROUTES } = require('../common/config');
 
-const unauthorizedMessage = `Not authorized. Please login at route: POST ${ROUTES.users}/login`;
-
 const { SECRET_KEY } = process.env;
+const unauthorizedMessage = `Not authorized. Please login at route: POST ${ROUTES.users}/login`;
 
 const auth = async (req, _, next) => {
   const { authorization = '' } = req.headers;
@@ -27,9 +26,8 @@ const auth = async (req, _, next) => {
     req.user = user;
     return await next();
   } catch (error) {
-    if (error.name === 'JSONWebTokenError') {
-      error.status = UNAUTHORIZED;
-    }
+    error.status = UNAUTHORIZED;
+
     return next(error);
   }
 };

@@ -20,16 +20,7 @@ const login = async (req, res) => {
   };
 
   const token = sign(payload, SECRET_KEY, { expiresIn: '1h' });
-
-  const updatedUser = await User.findByIdAndUpdate(
-    _id,
-    { token },
-    { new: true },
-  );
-
-  if (updatedUser.token) {
-    throw new Unauthorized('Error while updating token');
-  }
+  await User.findByIdAndUpdate(_id, { token }, { new: true });
 
   return resSuccessCodeData(res, OK, {
     token,

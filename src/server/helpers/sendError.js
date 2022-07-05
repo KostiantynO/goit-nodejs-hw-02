@@ -13,13 +13,10 @@ const checkResult = async (
   id = '',
   message = `Contact with _id='${id}' not found`,
 ) => {
-  await null;
-
   if (!result) {
     throw new NotFound(message);
   }
 };
-
 module.exports = {
   checkId,
   checkResult,

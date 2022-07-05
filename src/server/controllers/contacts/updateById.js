@@ -7,7 +7,7 @@ const updateById = async (req, res) => {
   const { id } = req.params;
   const contact = await Contact.findByIdAndUpdate(id, req.body, {
     new: true,
-  });
+  }).populate('owner', '_id email subscription');
 
   await checkResult(contact, id);
 

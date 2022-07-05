@@ -1,30 +1,26 @@
 const { Router } = require('express');
-
-const {
-  addContactJoiSchema,
-  favoriteJoiSchema,
-} = require('../../models/contacts');
+const model = require('../../models');
 const {
   auth,
   validation,
   validateContactId,
-  ctrlWrapper,
+  ctrlWrapper: wrapper,
 } = require('../../middlewares');
 
 const { contacts: ctrl } = require('../../controllers');
 
-const validateBody = validation(addContactJoiSchema);
-const isFav = validation(favoriteJoiSchema);
-const isId = ctrlWrapper(validateContactId);
+const body = validation(model.addContactJoiSchema);
+const isFav = validation(model.favoriteJoiSchema);
+const isId = wrapper(validateContactId);
 
 const router = Router();
 
 router
-  .get('/', auth, ctrlWrapper(ctrl.getAll))
-  .post('/', auth, validateBody, ctrlWrapper(ctrl.add))
-  .get('/:id', auth, isId, ctrlWrapper(ctrl.getById))
-  .put('/:id', auth, isId, validateBody, ctrlWrapper(ctrl.updateById))
-  .patch('/:id/favorite', auth, isId, isFav, ctrlWrapper(ctrl.updateStatus))
-  .delete('/:id', auth, isId, ctrlWrapper(ctrl.removeById));
+  .get('/', auth, wrapper(ctrl.getAll))
+  .post('/', auth, body, wrapper(ctrl.add))
+  .get('/:id', auth, isId, wrapper(ctrl.getById))
+  .put('/:id', auth, isId, body, wrapper(ctrl.updateById))
+  .patch('/:id/favorite', auth, isId, isFav, wrapper(ctrl.updateFavorite))
+  .delete('/:id', auth, isId, wrapper(ctrl.removeById));
 
 module.exports = router;
