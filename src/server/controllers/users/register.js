@@ -18,10 +18,7 @@ const register = async (req, res) => {
   const { subscription } = user;
 
   return resSuccessCodeData(res, CREATED, {
-    user: {
-      email,
-      subscription,
-    },
+    user: { email, subscription },
   });
 };
 

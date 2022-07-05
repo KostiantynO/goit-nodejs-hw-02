@@ -243,3 +243,56 @@ ResponseBody: {
 ```json
 Status: 204 No Content
 ```
+
+## `Крок 5`
+
+### `Поточний користувач - отримати дані юзера по токену`
+
+- [x] Створити ендпоінт
+      [/users/current](https://github.com/goitacademy/nodejs-homework/blob/master/homework-04/README.ua.md#current-user-request)
+
+  `Current user request`
+
+  ```json
+  GET /users/current
+  Authorization: "Bearer {{token}}"
+  ```
+
+- [x] Додай в раут мідлвар перевірки токена.
+
+  - [x] Якщо користувача не існує повернути
+        [Помилку Unauthorized](https://github.com/goitacademy/nodejs-homework/blob/master/homework-04/README.ua.md#current-user-unauthorized-error)
+
+    `Current user unauthorized error`
+
+    ```json
+    Status: 401 Unauthorized
+    Content-Type: application/json
+    ResponseBody: {
+      "message": "Not authorized"
+    }
+    ```
+
+- [x] В іншому випадку повернути
+      [Успішну відповідь](https://github.com/goitacademy/nodejs-homework/blob/master/homework-04/README.ua.md#current-user-success-response)
+
+  `Current user success response`
+
+  ```json
+  Status: 200 OK
+  Content-Type: application/json
+  ResponseBody: {
+    "email": "example@example.com",
+    "subscription": "starter"
+  }
+  ```
+
+## `Додаткове завдання - необов'язкове`
+
+- [ ] Зробити пагінацію для колекції контактів
+      (`GET /contacts?page=1&limit=20`).
+- [ ] Зробити фільтрацію контактів по полю обраного
+      (`GET /contacts?favorite=true`)
+- [ ] Оновлення підписки (`subscription`) користувача через ендпоінт
+      `PATCH /users`. Підписка повинна мати одне з наступних значень
+      `['starter', 'pro', 'business']`

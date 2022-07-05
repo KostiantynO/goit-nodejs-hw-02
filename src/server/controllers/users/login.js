@@ -25,10 +25,7 @@ const login = async (req, res) => {
 
   return resSuccessCodeData(res, OK, {
     token,
-    user: {
-      email,
-      subscription,
-    },
+    user: { email, subscription },
   });
 };
 
