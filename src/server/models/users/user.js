@@ -66,6 +66,7 @@ const joiMessages = {
     'any.required': emailMsg.required,
     'string.pattern.base': emailMsg.pattern,
   },
+  subscription: { 'any.required': `Missing field 'subscription'` },
 };
 
 const email = Joi.string()
@@ -83,10 +84,12 @@ const password = Joi.string()
   .required()
   .messages(joiMessages.password);
 
+const subscription = Joi.valid(...subscriptionTypes);
+
 const addUserJoiSchema = Joi.object({
   email,
   password,
-  subscription: Joi.valid(...subscriptionTypes).default('starter'),
+  subscription: subscription.default('starter'),
   token: Joi.string().default(''),
 });
 
@@ -95,8 +98,13 @@ const loginJoiSchema = Joi.object({
   password,
 });
 
+const subscriptionJoiSchema = Joi.object({
+  subscription: subscription.required().messages(joiMessages.subscription),
+});
+
 module.exports = {
   User,
   addUserJoiSchema,
   loginJoiSchema,
+  subscriptionJoiSchema,
 };

@@ -1,7 +1,7 @@
 const { Conflict } = require('http-errors');
+const { User } = require('../../models');
 const { CREATED } = require('../../common/http-codes');
 const { resSuccessCodeData } = require('../../helpers');
-const { User } = require('../../models');
 
 const register = async (req, res) => {
   const { email, password } = req.body;

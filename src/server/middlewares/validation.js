@@ -11,7 +11,7 @@ const validation = (schema) => async (req, _, next) => {
   }
 };
 
-const validateId = async (req, _, next) => {
+const validateContactId = async (req, _, next) => {
   const { id } = req.params;
   try {
     await checkId(id);
@@ -22,4 +22,4 @@ const validateId = async (req, _, next) => {
   }
 };
 
-module.exports = { validation, validateId };
+module.exports = { validation, validateContactId };

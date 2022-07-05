@@ -1,5 +1,5 @@
-const { resSuccessCodeData } = require('../../helpers');
 const { OK } = require('../../common/http-codes');
+const { resSuccessCodeData } = require('../../helpers');
 
 const getCurrent = async (req, res) => {
   const { email, subscription } = req.user;

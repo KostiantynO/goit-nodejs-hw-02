@@ -7,39 +7,24 @@ const {
 const {
   auth,
   validation,
-  validateId,
+  validateContactId,
   ctrlWrapper,
 } = require('../../middlewares');
 
-const {
-  contacts: {
-    getAll,
-    getById,
-    add,
-    updateById,
-    updateStatusContact,
-    removeById,
-  },
-} = require('../../controllers');
+const { contacts: ctrl } = require('../../controllers');
 
 const validateBody = validation(addContactJoiSchema);
-const validateFavorite = validation(favoriteJoiSchema);
-const isId = ctrlWrapper(validateId);
+const isFav = validation(favoriteJoiSchema);
+const isId = ctrlWrapper(validateContactId);
 
 const router = Router();
 
 router
-  .get('/', auth, ctrlWrapper(getAll))
-  .post('/', auth, validateBody, ctrlWrapper(add))
-  .get('/:id', auth, isId, ctrlWrapper(getById))
-  .put('/:id', auth, isId, validateBody, ctrlWrapper(updateById))
-  .patch(
-    '/:id/favorite',
-    auth,
-    isId,
-    validateFavorite,
-    ctrlWrapper(updateStatusContact),
-  )
-  .delete('/:id', auth, isId, ctrlWrapper(removeById));
+  .get('/', auth, ctrlWrapper(ctrl.getAll))
+  .post('/', auth, validateBody, ctrlWrapper(ctrl.add))
+  .get('/:id', auth, isId, ctrlWrapper(ctrl.getById))
+  .put('/:id', auth, isId, validateBody, ctrlWrapper(ctrl.updateById))
+  .patch('/:id/favorite', auth, isId, isFav, ctrlWrapper(ctrl.updateStatus))
+  .delete('/:id', auth, isId, ctrlWrapper(ctrl.removeById));
 
 module.exports = router;

@@ -23,7 +23,6 @@ const joiPhoneMessage = {
   'string.pattern.base': `{#label} expected formats: ${phoneExample}`,
 };
 
-// active - product is available and selling.
 const contactSchema = new Schema(
   {
     name: {
@@ -53,7 +52,7 @@ const contactSchema = new Schema(
 );
 const Contact = model('contact', contactSchema);
 
-const favorite = Joi.boolean().default(false);
+const favorite = Joi.boolean();
 
 const addContactJoiSchema = Joi.object({
   name: Joi.string().trim().min(2).max(40).required().messages(joiNameMessage),
@@ -74,7 +73,7 @@ const addContactJoiSchema = Joi.object({
     .default('')
     .messages(joiPhoneMessage),
 
-  favorite,
+  favorite: favorite.default(false),
 
   owner: Joi.string().default(''),
 });

@@ -1,4 +1,4 @@
-const { resSuccessCodeData } = require('./sendSuccess');
+const { resSuccessCodeData } = require('./resSuccess');
 
 module.exports = {
   resSuccessCodeData,

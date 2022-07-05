@@ -1,16 +1,16 @@
 const { BadRequest, NotFound } = require('http-errors');
 
-const checkId = async (id) => {
+const checkId = async (id = '') => {
   await null;
 
-  if (!id?.trim() || id?.trim() !== decodeURIComponent(id)) {
+  if (!id.trim() || id.trim() !== decodeURIComponent(id)) {
     throw new BadRequest(`Expected '/:_id' from mongoDB. Received: '${id}'`);
   }
 };
 
 const checkResult = async (
   result,
-  id,
+  id = '',
   message = `Contact with _id='${id}' not found`,
 ) => {
   await null;

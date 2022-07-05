@@ -1,8 +1,8 @@
 const { Unauthorized } = require('http-errors');
 const { sign } = require('jsonwebtoken');
-const { resSuccessCodeData } = require('../../helpers');
-const { OK } = require('../../common/http-codes');
 const { User } = require('../../models');
+const { OK } = require('../../common/http-codes');
+const { resSuccessCodeData } = require('../../helpers');
 
 const { SECRET_KEY } = process.env;
 
@@ -21,7 +21,15 @@ const login = async (req, res) => {
 
   const token = sign(payload, SECRET_KEY, { expiresIn: '1h' });
 
-  await User.findByIdAndUpdate(_id, { token });
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    { token },
+    { new: true },
+  );
+
+  if (updatedUser.token) {
+    throw new Unauthorized('Error while updating token');
+  }
 
   return resSuccessCodeData(res, OK, {
     token,
