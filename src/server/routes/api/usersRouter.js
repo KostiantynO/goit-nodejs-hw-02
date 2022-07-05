@@ -1,15 +1,13 @@
 const { Router } = require('express');
 const { addUserJoiSchema, loginJoiSchema } = require('../../models');
-const { validation, ctrlWrapper } = require('../../middlewares');
-
-const {
-  users: { register, login },
-} = require('../../controllers');
+const { validation, ctrlWrapper, auth } = require('../../middlewares');
+const { users } = require('../../controllers');
 
 const router = Router();
 
 router
-  .post('/register', validation(addUserJoiSchema), ctrlWrapper(register))
-  .post('/login', validation(loginJoiSchema), ctrlWrapper(login));
+  .post('/register', validation(addUserJoiSchema), ctrlWrapper(users.register))
+  .post('/login', validation(loginJoiSchema), ctrlWrapper(users.login))
+  .post('/logout', auth, ctrlWrapper(users.logout));
 
 module.exports = router;

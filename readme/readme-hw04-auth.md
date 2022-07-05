@@ -44,7 +44,7 @@
 
 ## `Крок 2`
 
-### Реєстрація
+### `Реєстрація`
 
 - [x] Створити ендпоінт
       [/users/register](https://github.com/goitacademy/nodejs-homework/blob/master/homework-04/README.ua.md#registration-request)
@@ -176,4 +176,70 @@ npm i bcryptjs
 
 ```bash
 npm i jsonwebtoken
+```
+
+## `Крок 3`
+
+### `Перевірка токена`
+
+- [x] Створи мідлвар для перевірки токена і додай його до всіх раутів, які
+      повинні бути захищені.
+- [x] Мідлвар бере токен з заголовків `Authorization`, перевіряє токен на
+      валідність.
+- [x] У випадку помилки повернути
+      [Помилку Unauthorized](https://github.com/goitacademy/nodejs-homework/blob/master/homework-04/README.ua.md#middleware-unauthorized-error).
+- [x] Якщо валідація пройшла успішно, отримати з токена `id` користувача. Знайти
+      користувача в базі даних з цим `id`.
+- [x] Якщо користувач існує і токен збігається з тим, що знаходиться в базі,
+      записати його дані в `req.user` і викликати `next()`.
+- [x] Якщо користувача з таким `id` НЕ існує або токени не збігаються, повернути
+      [Помилку Unauthorized](https://github.com/goitacademy/nodejs-homework/blob/master/homework-04/README.ua.md#middleware-unauthorized-error)
+
+`Middleware unauthorized error`
+
+```json
+Status: 401 Unauthorized
+Content-Type: application/json
+ResponseBody: {
+  "message": "Not authorized"
+}
+```
+
+## `Крок 4`
+
+### `Логаут`
+
+- [x] Створити ендпоінт
+      [/users/logout](https://github.com/goitacademy/nodejs-homework/blob/master/homework-04/README.ua.md#logout-request)
+
+  `Current user request`
+
+  ```json
+  GET /users/current
+  Authorization: "Bearer {{token}}"
+  ```
+
+- [x] Додай в маршрут мідлвар перевірки токена.
+
+  - [x] У моделі `User` знайти користувача за `_id`.
+  - [x] Якщо користувача не існує повернути
+        [Помилку Unauthorized](https://github.com/goitacademy/nodejs-homework/blob/master/homework-04/README.ua.md#logout-unauthorized-error).
+
+  `Logout unauthorized error`
+
+  ```json
+  Status: 401 Unauthorized
+  Content-Type: application/json
+  ResponseBody: {
+  "message": "Not authorized"
+  }
+  ```
+
+- [x] В іншому випадку, видалити токен у поточного юзера і повернути
+      [Успішна відповідь](https://github.com/goitacademy/nodejs-homework/blob/master/homework-04/README.ua.md#logout-success-response).
+
+`Logout success response`
+
+```json
+Status: 204 No Content
 ```

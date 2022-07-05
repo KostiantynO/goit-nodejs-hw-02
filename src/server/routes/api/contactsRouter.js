@@ -4,7 +4,12 @@ const {
   addContactJoiSchema,
   favoriteJoiSchema,
 } = require('../../models/contacts');
-const { validation, validateId, ctrlWrapper } = require('../../middlewares');
+const {
+  auth,
+  validation,
+  validateId,
+  ctrlWrapper,
+} = require('../../middlewares');
 
 const {
   contacts: {
@@ -24,16 +29,17 @@ const isId = ctrlWrapper(validateId);
 const router = Router();
 
 router
-  .get('/', ctrlWrapper(getAll))
-  .post('/', validateBody, ctrlWrapper(add))
-  .get('/:id', isId, ctrlWrapper(getById))
-  .put('/:id', isId, validateBody, ctrlWrapper(updateById))
+  .get('/', auth, ctrlWrapper(getAll))
+  .post('/', auth, validateBody, ctrlWrapper(add))
+  .get('/:id', auth, isId, ctrlWrapper(getById))
+  .put('/:id', auth, isId, validateBody, ctrlWrapper(updateById))
   .patch(
     '/:id/favorite',
+    auth,
     isId,
     validateFavorite,
     ctrlWrapper(updateStatusContact),
   )
-  .delete('/:id', isId, ctrlWrapper(removeById));
+  .delete('/:id', auth, isId, ctrlWrapper(removeById));
 
 module.exports = router;
