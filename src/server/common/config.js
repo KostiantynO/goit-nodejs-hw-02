@@ -5,8 +5,11 @@ const PORTS = {
 const { PORT } = process.env;
 const SERVER_PORT = PORT || PORTS.BACKEND;
 
+const baseUrl = '/api/v1';
+
 const ROUTES = {
-  contacts: '/api/v1/contacts',
+  users: `${baseUrl}/users`,
+  contacts: `${baseUrl}/contacts`,
 };
 
 const ENDPOINTS = {

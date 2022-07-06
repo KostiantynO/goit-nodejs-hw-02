@@ -1,17 +1,17 @@
 const { Contact } = require('../../models');
 const { checkResult } = require('../../helpers/sendError');
-const { sendSuccessCodeData } = require('../../helpers/sendSuccess');
 const { OK } = require('../../common/http-codes');
+const { resSuccessCodeData } = require('../../helpers');
 
 const updateById = async (req, res) => {
   const { id } = req.params;
-  const updatedContact = await Contact.findByIdAndUpdate(id, req.body, {
+  const contact = await Contact.findByIdAndUpdate(id, req.body, {
     new: true,
-  });
+  }).populate('owner', '_id email subscription');
 
-  await checkResult(updatedContact, id);
+  await checkResult(contact, id);
 
-  return sendSuccessCodeData(res, OK, updatedContact);
+  return resSuccessCodeData(res, OK, { contact });
 };
 
 module.exports = updateById;

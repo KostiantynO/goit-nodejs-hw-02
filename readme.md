@@ -9,7 +9,7 @@
 
 - [x] hw02-express
 - [x] hw03-mongodb
-- [ ] hw04
+- [x] hw04-auth
 - [ ] hw05
 - [ ] hw06
 

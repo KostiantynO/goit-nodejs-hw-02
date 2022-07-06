@@ -23,7 +23,6 @@ const joiPhoneMessage = {
   'string.pattern.base': `{#label} expected formats: ${phoneExample}`,
 };
 
-// active - product is available and selling.
 const contactSchema = new Schema(
   {
     name: {
@@ -37,19 +36,24 @@ const contactSchema = new Schema(
       type: String,
       match: [
         phoneRegExp,
-        `Got {VALUE}, but 'phone' expected formats: ${phoneExample}`,
+        `Got {VALUE}, but 'phone' expected formats are: ${phoneExample}`,
       ],
       minlength: 6,
       maxlength: 21,
     },
     favorite: { type: Boolean, default: false },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required: true,
+    },
   },
 
   { versionKey: false, timestamps: true },
 );
 const Contact = model('contact', contactSchema);
 
-const favorite = Joi.boolean().default(false);
+const favorite = Joi.boolean();
 
 const addContactJoiSchema = Joi.object({
   name: Joi.string().trim().min(2).max(40).required().messages(joiNameMessage),
@@ -66,11 +70,11 @@ const addContactJoiSchema = Joi.object({
     .trim()
     .min(6)
     .max(21)
-    .regex(phoneRegExp)
+    .pattern(phoneRegExp, 'phone')
     .default('')
     .messages(joiPhoneMessage),
 
-  favorite,
+  favorite: favorite.default(false),
 });
 
 const favoriteJoiSchema = Joi.object({

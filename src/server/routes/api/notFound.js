@@ -1,17 +1,21 @@
-const { NOT_FOUND, SERVER_ERROR } = require('../../common/http-codes');
+const { NOT_FOUND, SERVER_ERROR, ERROR } = require('../../common/http-codes');
 
-const generateRoutingError = (_, res) => {
+const routeNotFound = (_, res) => {
   res.status(NOT_FOUND).json({ message: 'Not found' });
 };
 
-const catchRoutingError = (err, _, res, next) => {
-  res.status(SERVER_ERROR).json({
-    message: `${err.message}. 1. Check route (url) and method (GET|POST|PUT|PATCH|DELETE); 2. Change JSON content; 3. Check for trailing comma and double quotes.`,
+// eslint-disable-next-line no-unused-vars
+const catchError = (err, _, res, next) => {
+  const { status = SERVER_ERROR, message = 'Server error' } = err;
+
+  res.status(status).json({
+    status: ERROR,
+    code: status,
+    message,
   });
-  next();
 };
 
 module.exports = {
-  generateRoutingError,
-  catchRoutingError,
+  routeNotFound,
+  catchError,
 };
