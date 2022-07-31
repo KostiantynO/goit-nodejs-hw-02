@@ -12,14 +12,19 @@ const ROUTES = {
   contacts: `${baseUrl}/contacts`,
 };
 
+const localhost = 'http://localhost';
+
 const ENDPOINTS = {
-  contacts: `http://localhost:${SERVER_PORT}${ROUTES.contacts}`,
+  contacts: `${localhost}:${SERVER_PORT}${ROUTES.contacts}`,
+  users: `${localhost}:${SERVER_PORT}${ROUTES.users}`,
 };
 
 const logPort = (route) => {
   switch (route) {
     case ROUTES.contacts:
-      console.log(`Server started. Endpoint: ${ENDPOINTS.contacts}`);
+      console.log(
+        `Server started. Endpoints: ${ENDPOINTS.contacts}\n ${ENDPOINTS.users}`,
+      );
       break;
 
     default:
