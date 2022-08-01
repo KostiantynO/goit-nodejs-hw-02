@@ -1,6 +1,6 @@
 const { BAD_REQUEST } = require('../common/http-codes');
 
-const ctrlWrapper = (ctrl) => async (req, res, next) => {
+const wrapper = (ctrl) => async (req, res, next) => {
   try {
     return await ctrl(req, res, next);
   } catch (error) {
@@ -9,4 +9,4 @@ const ctrlWrapper = (ctrl) => async (req, res, next) => {
   }
 };
 
-module.exports = ctrlWrapper;
+module.exports = wrapper;

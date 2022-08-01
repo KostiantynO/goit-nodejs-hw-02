@@ -21,7 +21,7 @@
 http://localhost:3000/avatars/gun.svg
 ```
 
-2022-07-31 22:27
+`2022-07-31 22:27`
 
 ```bash
 npm i multer gravatar
@@ -30,16 +30,57 @@ npm i -D @types/node
 
 ## `Крок 2`
 
-У схему користувача додай нову властивість avatarURL для зберігання зображення.
+- [x] У схему користувача додай нову властивість avatarURL для зберігання
+      зображення.
 
 ```js
 {
-  ...
   avatarURL: String,
-  ...
 }
 ```
 
-- [ ] Використовуй пакет [gravatar](https://www.npmjs.com/package/gravatar) для
+- [x] Використовуй пакет [gravatar](https://www.npmjs.com/package/gravatar) для
       того, щоб при реєстрації нового користувача відразу згенерувати йому
       аватар по його email.
+
+## `Крок 4`
+
+- [x] Додай можливість поновлення аватарки, створивши ендпоінт `/users/avatars`
+      і використовуючи метод `PATCH`.
+
+```bash
+# Запит
+PATCH /users/avatars
+Content-Type: multipart/form-data
+Authorization: "Bearer {{token}}"
+RequestBody: завантажений файл
+
+# Успішна відповідь
+Status: 200 OK
+Content-Type: application/json
+ResponseBody: {
+  "avatarURL": "public/avatars/image.jpg"
+}
+
+# Неуспішна відповідь
+Status: 401 Unauthorized
+Content-Type: application/json
+ResponseBody: {
+  "message": "Not authorized"
+}
+```
+
+- [x] Створи папку `tmp` в корені проекту і зберігай в неї завантажену аватарку.
+- [x] Оброби аватарку пакетом [jimp](https://www.npmjs.com/package/jimp) і
+      постав для неї розміри 250 на 250
+- [x] Перенеси аватарку користувача з папки `tmp` в папку `public/avatars`
+
+      - [x] і дай їй унікальне ім'я для конкретного користувача.
+
+- [x] Отримай URL `/avatars/image.jpg` та збережи в поле `avatarURL` користувача
+
+`2022-08-01 13:06`
+
+```bash
+npm i jimp
+```
