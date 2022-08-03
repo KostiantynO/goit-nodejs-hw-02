@@ -84,3 +84,26 @@ ResponseBody: {
 ```bash
 npm i jimp
 ```
+
+## `Додаткове завдання - необов'язкове`
+
+1. Написати unit-тести для контролера входу (login/signin)
+
+   за допомогою [Jest](https://jestjs.io/ru/docs/getting-started)
+
+- [ ] відповідь повина мати статус-код 200
+- [ ] у відповіді повинен повертатися токен
+- [ ] у відповіді повинен повертатися об'єкт `user` з 2 полями `email` та
+      `subscription` з типом даних `String`
+
+`2022-08-01 17:52`
+
+```bash
+npm i -D jest @types/jest
+```
+
+`2022-08-04 01:10`
+
+```bash
+npm i -D supertest @types/supertest
+```

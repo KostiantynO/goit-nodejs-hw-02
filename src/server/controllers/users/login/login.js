@@ -1,8 +1,8 @@
 const { Unauthorized } = require('http-errors');
 const { sign } = require('jsonwebtoken');
-const { User } = require('../../models');
-const { OK } = require('../../common/http-codes');
-const { resSuccessCodeData } = require('../../helpers');
+const { User } = require('../../../models');
+const { OK } = require('../../../common/http-codes');
+const { resSuccessCodeData } = require('../../../helpers');
 
 const { SECRET_KEY } = process.env;
 
