@@ -11,7 +11,7 @@ const ROUTES = {
   users: `${baseUrl}/users`,
   contacts: `${baseUrl}/contacts`,
 };
-
+const loginRoute = `${ROUTES.users}/login`;
 const localhost = 'http://localhost';
 
 const ENDPOINTS = {
@@ -35,6 +35,8 @@ const logPort = (route) => {
 module.exports = {
   SERVER_PORT,
   ROUTES,
+  loginRoute,
+
   ENDPOINTS,
 
   logPort,

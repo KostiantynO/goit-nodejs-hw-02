@@ -5,6 +5,8 @@ const { SERVER_PORT, logPort, ROUTES } = require('../server/common/config');
 
 const { DB_HOST } = process.env;
 
+let serverInstance = {};
+
 const server = async () => {
   let timer = null;
 
@@ -17,7 +19,7 @@ const server = async () => {
     clearTimeout(timer);
     console.log('Database connection successful ✅');
 
-    app.listen(SERVER_PORT, () => logPort(ROUTES.contacts));
+    serverInstance = app.listen(SERVER_PORT, () => logPort(ROUTES.contacts));
   } catch (error) {
     console.error('Cannot connect to MongoDB:', error);
     clearTimeout(timer);
@@ -25,4 +27,4 @@ const server = async () => {
   }
 };
 
-module.exports = server;
+module.exports = { server, serverInstance, app };
