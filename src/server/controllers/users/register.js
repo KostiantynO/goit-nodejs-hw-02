@@ -1,4 +1,5 @@
 const { Conflict } = require('http-errors');
+const { url } = require('gravatar');
 const { User } = require('../../models');
 const { CREATED } = require('../../common/http-codes');
 const { resSuccessCodeData } = require('../../helpers');
@@ -11,14 +12,19 @@ const register = async (req, res) => {
     throw new Conflict('Email in use');
   }
 
-  const user = new User({ email });
+  const avatarURL = url(email, null, true);
+  const user = new User({ email, avatarURL });
   await user.setPassword(password);
   await user.save();
 
   const { subscription } = user;
 
   return resSuccessCodeData(res, CREATED, {
-    user: { email, subscription },
+    user: {
+      email,
+      subscription,
+      avatarURL,
+    },
   });
 };
 

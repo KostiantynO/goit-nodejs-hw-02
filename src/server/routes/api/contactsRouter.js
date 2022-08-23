@@ -4,7 +4,7 @@ const {
   auth,
   validation,
   validateContactId,
-  ctrlWrapper: wrapper,
+  wrapper,
 } = require('../../middlewares');
 
 const { contacts: ctrl } = require('../../controllers');
