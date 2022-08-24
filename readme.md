@@ -10,8 +10,8 @@
 - [x] hw02-express
 - [x] hw03-mongodb
 - [x] hw04-auth
-- [ ] hw05
-- [ ] hw06
+- [x] hw05-avatars
+- [x] hw06-email
 
 Кожна нова гілка для др повинна робитися з master
 

@@ -8,7 +8,7 @@ const { TEST_EMAIL, TEST_PASSWORD } = process.env;
 
 const OK = 200;
 
-const postLogin  = async () => {
+const postLogin = async () => {
   const { statusCode } = await request(app).post(loginRoute).send({
     email: TEST_EMAIL,
     password: TEST_PASSWORD,

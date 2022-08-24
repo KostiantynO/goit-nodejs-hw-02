@@ -5,7 +5,7 @@ const Joi = require('joi');
 const emailRegExp = /^\w+@\w+\.\w{1,10}$/;
 const emailMsg = {
   pattern: 'Please provide correct email',
-  required: 'Email is required',
+  required: 'email is required',
 };
 const passMsg = 'Set password for user';
 const subscriptionTypes = ['starter', 'pro', 'business'];
@@ -16,28 +16,42 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       minlength: 5,
-      maxlength: 50,
+      maxlength: 64,
       match: [emailRegExp, emailMsg.pattern],
       required: [true, emailMsg.required],
     },
+
     password: {
       type: String,
       minlength: 8,
-      maxlength: 100,
+      maxlength: 1024,
       required: [true, passMsg],
     },
+
     subscription: {
       type: String,
       enum: subscriptionTypes,
       default: 'starter',
     },
+
     token: {
       type: String,
       default: '',
     },
+
     avatarURL: {
       type: String,
       required: true,
+    },
+
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+
+    verificationToken: {
+      type: String,
+      required: [true, 'Verification token is required'],
     },
   },
 
@@ -76,7 +90,7 @@ const joiMessages = {
 const email = Joi.string()
   .trim()
   .min(5)
-  .max(50)
+  .max(64)
   .pattern(emailRegExp, 'email')
   .required()
   .messages(joiMessages.email);
@@ -84,7 +98,7 @@ const email = Joi.string()
 const password = Joi.string()
   .trim()
   .min(8)
-  .max(100)
+  .max(1024)
   .required()
   .messages(joiMessages.password);
 
@@ -106,9 +120,14 @@ const subscriptionJoiSchema = Joi.object({
   subscription: subscription.required().messages(joiMessages.subscription),
 });
 
+const verificationEmailJoiSchema = Joi.object({
+  email,
+});
+
 module.exports = {
   User,
   addUserJoiSchema,
+  verificationEmailJoiSchema,
   loginJoiSchema,
   subscriptionJoiSchema,
 };
