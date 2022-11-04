@@ -3,6 +3,7 @@ const PORTS = {
   FRONTEND: 3001,
 };
 const { PORT } = process.env;
+
 const SERVER_PORT = PORT || PORTS.BACKEND;
 
 const baseUrl = '/api/v1';
@@ -11,7 +12,11 @@ const ROUTES = {
   users: `${baseUrl}/users`,
   contacts: `${baseUrl}/contacts`,
 };
+
+// for testing
 const loginRoute = `${ROUTES.users}/login`;
+const verifyEmailRoute = `${ROUTES.users}/verify`;
+
 const localhost = 'http://localhost';
 
 const ENDPOINTS = {
@@ -36,6 +41,7 @@ module.exports = {
   SERVER_PORT,
   ROUTES,
   loginRoute,
+  verifyEmailRoute,
 
   ENDPOINTS,
 

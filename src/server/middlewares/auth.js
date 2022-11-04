@@ -5,23 +5,36 @@ const { UNAUTHORIZED } = require('../common/http-codes');
 const { ROUTES } = require('../common/config');
 
 const { SECRET_KEY } = process.env;
+
 const unauthorizedMessage = `Not authorized. Please login at route: POST ${ROUTES.users}/login`;
+
+/** helper
+ * @returns token */
+const isToken = (authorization = '') => {
+  const [bearer, token] = authorization.split(' ');
+  if (bearer !== 'Bearer' || !token) {
+    throw new Unauthorized(unauthorizedMessage);
+  }
+  return token;
+};
+
+/** helper checks if token equal to user.token from DB */
+const isSameToken = (user, token) => {
+  if (!user || user.token !== token) {
+    throw new Unauthorized('Not authorized');
+  }
+};
 
 const auth = async (req, _, next) => {
   const { authorization = '' } = req.headers;
-  const [bearer, token] = authorization.split(' ');
 
   try {
-    if (bearer !== 'Bearer' || !token) {
-      throw new Unauthorized(unauthorizedMessage);
-    }
+    const token = isToken(authorization);
 
     const { id } = verify(token, SECRET_KEY);
     const user = await User.findById(id);
 
-    if (!user || user.token !== token) {
-      throw new Unauthorized('Not authorized');
-    }
+    isSameToken(user, token);
 
     req.user = user;
     return await next();

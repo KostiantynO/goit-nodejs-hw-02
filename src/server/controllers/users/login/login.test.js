@@ -4,11 +4,11 @@
 - [ ] у відповіді повинен повертатися об'єкт `user` з 2 полями `email` та
       `subscription` з типом даних `String`
 */
-
 const request = require('supertest');
+require('dotenv').config();
 
-const TEST_EMAIL = 'test@test.com';
-const TEST_PASSWORD = 'testpassword';
+const { TEST_EMAIL, TEST_PASSWORD } = process.env;
+
 const Credentials = { email: TEST_EMAIL, password: TEST_PASSWORD };
 
 const data = { user: Credentials, token: '' };
